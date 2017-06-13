@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 	{
 		fflush(stdout);
 		fflush(stdin);
-		printf("¸Ş´º ¼±ÅÃ (1. ¸ñ·Ï 2.´Ù¿î·Îµå 3. Á¾·á) : ");
+		printf("ë©”ë‰´ ì„ íƒ (1. ëª©ë¡ 2.ë‹¤ìš´ë¡œë“œ 3. ì¢…ë£Œ) : ");
 		scanf("%s", select);
 		write(sock, select, 2);
 		char buf[BUFSIZE];
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 				if (list->size == -1){
 					break;
 				}
-				printf("ÆÄÀÏ ÀÌ¸§ : %s \tÆÄÀÏ Å©±â : %d\n", list->name, list->size);
+				printf("íŒŒì¼ ì´ë¦„ : %s \tíŒŒì¼ í¬ê¸° : %d\n", list->name, list->size);
 
 			}
 			
@@ -88,12 +88,12 @@ int main(int argc, char *argv[])
 			char ssend[BUFSIZE];
 
 			memset(filename, 0, sizeof(filename));
-			printf("´Ù¿î·Îµå ÇÒ ÆÄÀÏ ÀÌ¸§ : ");
+			printf("ë‹¤ìš´ë¡œë“œ í•  íŒŒì¼ ì´ë¦„ : ");
 			fflush(stdin);
 			scanf("%s", filename);
 			fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 			if (fd < 0) {
-				err_quit("ÆÄÀÏ I/O ¿¡·¯");
+				err_quit("íŒŒì¼ I/O ì—ëŸ¬");
 				close(sock);
 				return 1;
 			}
@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
 			memcpy(ssend, append, sizeof(app));
 			retval = write(sock, ssend, sizeof(app));
 			if (retval == -1) {
-				err_quit("recv() ¿¡·¯");
+				err_quit("recv() ì—ëŸ¬");
 				close(sock);
 				return 1;
 			}
@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
 			int totalbytes;
 			retval = recvn(sock, (char *)&totalbytes, sizeof(totalbytes));
 			if (retval == -1) {
-				err_quit("recv() ¿¡·¯");
+				err_quit("recv() ì—ëŸ¬");
 				close(sock);
 				return 1;
 			}
@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
 				char readbuf[BUFSIZE] = { 0 };
 				retval = read(sock, readbuf, BUFSIZE);
 				if (retval == -1) {
-					err_quit("recv() ¿¡·¯");
+					err_quit("recv() ì—ëŸ¬");
 				}
 				else {
 					nwrite = write(fd, readbuf, retval);
@@ -135,10 +135,10 @@ int main(int argc, char *argv[])
 			}
 			close(fd);
 			if (numtotal == totalbytes)
-				fprintf(stderr, "-> ÆÄÀÏ º¯È¯ ¼º°ø\n");
+				fprintf(stderr, "-> íŒŒì¼ ë³€í™˜ ì„±ê³µ\n");
 			else
-				fprintf(stderr, "-> ÆÄÀÏ º¯È¯ ½ÇÆĞ\n");
-			fprintf(stderr, "ÆÄÀÏ ¹Ş±â ¼º°ø\n");
+				fprintf(stderr, "-> íŒŒì¼ ë³€í™˜ ì‹¤íŒ¨\n");
+			fprintf(stderr, "íŒŒì¼ ë°›ê¸° ì„±ê³µ\n");
 
 
 		}
@@ -146,12 +146,12 @@ int main(int argc, char *argv[])
 		else if (!strcmp(select, "3"))
 		{
 			write(sock, select, 2);
-			printf("ÇÁ·Î±×·¥ Á¾·á\n");
+			printf("í”„ë¡œê·¸ë¨ ì¢…ë£Œ\n");
 			break;
 		}
 		else
 		{
-			printf("Àß¸øµÈ ¸Ş´º\n");
+			printf("ì˜ëª»ëœ ë©”ë‰´\n");
 		}
 	}
 	return 0;
